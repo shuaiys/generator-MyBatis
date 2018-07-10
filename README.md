@@ -1,4 +1,4 @@
-# generator-p-MyBatis
+# generator-MyBatis
 Mybatis自动生成工具。
 功能：能自动生成底层代码。包括自动设置分页，几乎单表的任何数据操作都能实现。
 
