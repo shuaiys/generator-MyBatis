@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shuaiys.market.dao.CouponApprovalDAO">
+  <resultMap id="BaseResultMap" type="com.shuaiys.market.dataobject.CouponApprovalDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="coupon_define_id" jdbcType="BIGINT" property="couponDefineId" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="apply_user" jdbcType="VARCHAR" property="applyUser" />
+    <result column="need_approval" jdbcType="INTEGER" property="needApproval" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="effective_type" jdbcType="INTEGER" property="effectiveType" />
+    <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime" />
+    <result column="effective_time" jdbcType="TIMESTAMP" property="effectiveTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, coupon_define_id, summary, apply_user, need_approval, status, effective_type, 
+    approval_time, effective_time
+  </sql>
+  <select id="selectByExample" parameterType="com.shuaiys.market.dataobject.CouponApprovalDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from market_coupon_approval
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="page != null">
+      limit #{page.startNum} , #{page.pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from market_coupon_approval
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from market_coupon_approval
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.shuaiys.market.dataobject.CouponApprovalDO">
+    insert into market_coupon_approval (id, coupon_define_id, summary, 
+      apply_user, need_approval, status, 
+      effective_type, approval_time, effective_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{couponDefineId,jdbcType=BIGINT}, #{summary,jdbcType=VARCHAR}, 
+      #{applyUser,jdbcType=VARCHAR}, #{needApproval,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{effectiveType,jdbcType=INTEGER}, #{approvalTime,jdbcType=TIMESTAMP}, #{effectiveTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shuaiys.market.dataobject.CouponApprovalDO">
+    insert into market_coupon_approval
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="couponDefineId != null">
+        coupon_define_id,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+      <if test="needApproval != null">
+        need_approval,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="effectiveType != null">
+        effective_type,
+      </if>
+      <if test="approvalTime != null">
+        approval_time,
+      </if>
+      <if test="effectiveTime != null">
+        effective_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="couponDefineId != null">
+        #{couponDefineId,jdbcType=BIGINT},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="needApproval != null">
+        #{needApproval,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveType != null">
+        #{effectiveType,jdbcType=INTEGER},
+      </if>
+      <if test="approvalTime != null">
+        #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTime != null">
+        #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shuaiys.market.dataobject.CouponApprovalDOExample" resultType="java.lang.Long">
+    select count(*) from market_coupon_approval
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update market_coupon_approval
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.couponDefineId != null">
+        coupon_define_id = #{record.couponDefineId,jdbcType=BIGINT},
+      </if>
+      <if test="record.summary != null">
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyUser != null">
+        apply_user = #{record.applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needApproval != null">
+        need_approval = #{record.needApproval,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.effectiveType != null">
+        effective_type = #{record.effectiveType,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalTime != null">
+        approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.effectiveTime != null">
+        effective_time = #{record.effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update market_coupon_approval
+    set id = #{record.id,jdbcType=BIGINT},
+      coupon_define_id = #{record.couponDefineId,jdbcType=BIGINT},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      apply_user = #{record.applyUser,jdbcType=VARCHAR},
+      need_approval = #{record.needApproval,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      effective_type = #{record.effectiveType,jdbcType=INTEGER},
+      approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      effective_time = #{record.effectiveTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shuaiys.market.dataobject.CouponApprovalDO">
+    update market_coupon_approval
+    <set>
+      <if test="couponDefineId != null">
+        coupon_define_id = #{couponDefineId,jdbcType=BIGINT},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="needApproval != null">
+        need_approval = #{needApproval,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveType != null">
+        effective_type = #{effectiveType,jdbcType=INTEGER},
+      </if>
+      <if test="approvalTime != null">
+        approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTime != null">
+        effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shuaiys.market.dataobject.CouponApprovalDO">
+    update market_coupon_approval
+    set coupon_define_id = #{couponDefineId,jdbcType=BIGINT},
+      summary = #{summary,jdbcType=VARCHAR},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      need_approval = #{needApproval,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      effective_type = #{effectiveType,jdbcType=INTEGER},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      effective_time = #{effectiveTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
